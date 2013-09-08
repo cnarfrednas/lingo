@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1378640857 source:c:\users\sander\documents\codeblocks\lingo\lingo\main.c
+	<stdio.h>
+	<stdlib.h>
+

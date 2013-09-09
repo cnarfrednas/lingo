@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <string.h>
 
 /******************************************************************
 ** File : lingo.c
@@ -14,11 +16,16 @@
 
 char carrIngevoegdWoord[6];
 char carrGekozenWoord[6];
-char carrTussenWoord[18];
+char carrWoord[6];
+char carrWoord2[6];
+char carrTussenReeks[6];
+char carrGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
+char carrAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
+
 char cKeuze;
 int iCount1, iCount2, iCount3;
-
-
+void CheckLetters(void);
+int a, b ,c, k, l, p;
 int main()
 {
     FILE *input;
@@ -29,37 +36,69 @@ int main()
     }
     else
     {
-        printf("Welkom bij Lingo!\nHet eerste woord is:\n");
+        printf("Welkom bij Lingo!\n#: goede letter\n@: aanwezige letter\n\nHet eerste woord is:\n");
         fgets (carrGekozenWoord, 6, input);
-       // for(iCount=0; iCount<6; iCount++)
-       // {
-       //     printf("%c", carrGekozenWoord[iCount]);
-       // }
+        //for(iCount=0; iCount<6; iCount++)
+        // {
+        //     printf("%c", carrGekozenWoord[iCount]);
+        // }
         for(iCount1 = 0; iCount1<5; iCount1++)
         {
-            if(iCount1 == 0){printf("%c", carrGekozenWoord[iCount1]);}
-            else{printf(".");}
+            if(iCount1 == 0)
+            {
+                printf("%c", carrGekozenWoord[iCount1]);
+            }
+            else
+            {
+                printf(".");
+            }
+            carrWoord2[iCount1]=carrGekozenWoord[iCount1];
         }
+        // strcpy(carrGekozenWoord,carrWoord);
         printf("\n");
 
-        for(iCount2 = 0; iCount2<5; iCount2++)
+        scanf("%s", &carrIngevoegdWoord);
+
+        for(a=0; a<5; a++)
         {
-            scanf("%c", &carrIngevoegdWoord[iCount2]);
+            if(carrWoord2[a]==carrIngevoegdWoord[a])
+            {
+                carrGoedeLetters[a]=carrWoord2[a];
+                carrWoord[a] = '.';
+                carrWoord2[a]='.';
+            }
+            else
+            {
+                carrWoord[a]=carrIngevoegdWoord[a];
+                carrGoedeLetters[a]='.';
+
+            }
+        }
+        printf("\n%s   :Rest invoer",&carrWoord);
+        printf("\n%s   :Rest opl",&carrWoord2);
+        printf("\n%s   :Goede letters",&carrGoedeLetters);
+
+        for(b=0; b<5; b++)
+        {
+            for(c=0; c<5; c++)
+            {
+                if(carrWoord[b]==carrWoord2[c])
+                {
+                    carrAanwezigeLetters[b]=carrWoord[b];
+                    carrWoord[b]='.';
+                    carrWoord2[c]='.';
+
+                }
+            }
         }
 
+        printf("\n\n%s   :Rest invoer",&carrWoord);
+        printf("\n%s   :Rest opl",&carrWoord2);
+        //printf("\n%s   :Goede letters",&carrGoedeLetters);
+        printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
 
-        for(iCount1 = 0; iCount1<6; iCount1++)
-        {
-            if(carrGekozenWoord[iCount1]==carrIngevoegdWoord[iCount1])
-        }
 
     }
 
-
-
-
-
     return 0;
 }
-
-

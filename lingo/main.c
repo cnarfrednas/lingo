@@ -18,18 +18,20 @@ char carrIngevoegdWoord[6];
 char carrGekozenWoord[6];
 char carrWoord[6];
 char carrWoord2[6];
-char carrTussenReeks[6];
+char carrHeleGoedeLetters[6];
+char carrSymbol[6];
 char carrGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
 char carrAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
 
 char cKeuze;
 int iCount1, iCount2, iCount3;
-void CheckLetters(void);
+
+void ControleerInvoer(void);
 int a, b ,c, k, l, p;
 int main()
 {
     FILE *input;
-    if ((input = fopen("C:\\Users\\Christian\\git\\slingo\\woorden.txt", "r")) == NULL)       //invoer ophalen
+    if ((input = fopen("C:\\Users\\Sander\\Documents\\lingowoorden.txt", "r")) == NULL)       //invoer ophalen
     {
         printf("Geen invoer bestand");                              //wanneer er geen input is, deze waarschuwing geven
         return 0;
@@ -56,55 +58,85 @@ int main()
         }
         // strcpy(carrGekozenWoord,carrWoord);
         printf("\n");
-
         scanf("%s", &carrIngevoegdWoord);
-
-        for(a=0; a<5; a++)
-        {
-            if(carrWoord2[a]==carrIngevoegdWoord[a])
-            {
-                carrGoedeLetters[a]=carrWoord2[a];
-                carrWoord[a] = '.';
-                carrWoord2[a]='.';
-            }
-            else
-            {
-                carrWoord[a]=carrIngevoegdWoord[a];
-                carrGoedeLetters[a]='.';
-
-            }
-        }
-        printf("\n%s   :Rest invoer",&carrWoord);
-        printf("\n%s   :Rest opl",&carrWoord2);
-        printf("\n%s   :Goede letters",&carrGoedeLetters);
-
-        printf("\n\n");
-        for(b=0; b<5; b++)
-        {
-            for(c=0; c<5; c++)
-            {
-                //printf("\n  %i:%i : %c:%c",b,c,carrWoord[b], carrWoord2[c]);
-                if(carrWoord[b]==carrWoord2[c] && carrWoord[b] != '.')
-                {
-                    carrAanwezigeLetters[b]=carrWoord[b];
-                    carrWoord[b]='.';
-                    carrWoord2[c]='.';
-                    break;
-                }
-                else
-                {
-                    carrAanwezigeLetters[b] = '.';
-                }
-            }
-        }
-
-        printf("\n\n%s   :Rest invoer",&carrWoord);
-        printf("\n%s   :Rest opl",&carrWoord2);
-        //printf("\n%s   :Goede letters",&carrGoedeLetters);
-        printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
+        ControleerInvoer();
+        printf("\n");
+        scanf("%s", &carrIngevoegdWoord);
+        ControleerInvoer();
+        printf("\n");
+        scanf("%s", &carrIngevoegdWoord);
+        ControleerInvoer();
 
 
     }
 
     return 0;
+}
+
+void Initialisatie(void)
+{
+
+}
+
+void ControleerInvoer(void)
+{
+    for(a=0; a<5; a++)
+    {
+        if(carrWoord2[a]==carrIngevoegdWoord[a])
+        {
+            carrGoedeLetters[a]=carrWoord2[a];
+            carrWoord[a] = '.';
+            carrWoord2[a]='.';
+        }
+        else
+        {
+            carrWoord[a]=carrIngevoegdWoord[a];
+            carrGoedeLetters[a]='.';
+
+        }
+    }
+    printf("\n%s   :Rest invoer",&carrWoord);
+    printf("\n%s   :Rest opl",&carrWoord2);
+    printf("\n%s   :Goede letters",&carrGoedeLetters);
+
+    printf("\n\n");
+    for(b=0; b<5; b++)
+    {
+        for(c=0; c<5; c++)
+        {
+            //printf("\n  %i:%i : %c:%c",b,c,carrWoord[b], carrWoord2[c]);
+            if(carrWoord[b]==carrWoord2[c] && carrWoord[b] != '.')
+            {
+                carrAanwezigeLetters[b]=carrWoord[b];
+                carrWoord[b]='.';
+                carrWoord2[c]='.';
+                break;
+            }
+            else
+            {
+                carrAanwezigeLetters[b] = '.';
+            }
+        }
+    }
+
+    for(k=0; k<5; k++)
+    {
+        carrHeleGoedeLetters[k]=carrGoedeLetters[k];
+    }
+
+    if((carrIngevoegdWoord[0]==carrGekozenWoord[0])&&(carrIngevoegdWoord[1]==carrGekozenWoord[1])&&(carrIngevoegdWoord[2]==carrGekozenWoord[2])&&(carrIngevoegdWoord[3]==carrGekozenWoord[3])&&(carrIngevoegdWoord[4]==carrGekozenWoord[4]))
+    {
+        printf("gefeliciteerd, het woord is goed!");
+    }
+    else
+    {
+        printf("\n\n%s   :Rest invoer",&carrWoord);
+        printf("\n%s   :Rest opl",&carrWoord2);
+        //printf("\n%s   :Goede letters",&carrGoedeLetters);
+        printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
+        printf("\n%s   :Nieuwe kans",&carrHeleGoedeLetters);
+    }
+
+
+
 }

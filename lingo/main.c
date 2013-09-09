@@ -29,7 +29,7 @@ int a, b ,c, k, l, p;
 int main()
 {
     FILE *input;
-    if ((input = fopen("C:\\Users\\Sander\\Documents\\lingowoorden.txt", "r")) == NULL)       //invoer ophalen
+    if ((input = fopen("C:\\Users\\Christian\\git\\slingo\\woorden.txt", "r")) == NULL)       //invoer ophalen
     {
         printf("Geen invoer bestand");                              //wanneer er geen input is, deze waarschuwing geven
         return 0;
@@ -78,16 +78,22 @@ int main()
         printf("\n%s   :Rest opl",&carrWoord2);
         printf("\n%s   :Goede letters",&carrGoedeLetters);
 
+        printf("\n\n");
         for(b=0; b<5; b++)
         {
             for(c=0; c<5; c++)
             {
-                if(carrWoord[b]==carrWoord2[c])
+                //printf("\n  %i:%i : %c:%c",b,c,carrWoord[b], carrWoord2[c]);
+                if(carrWoord[b]==carrWoord2[c] && carrWoord[b] != '.')
                 {
                     carrAanwezigeLetters[b]=carrWoord[b];
                     carrWoord[b]='.';
                     carrWoord2[c]='.';
-
+                    break;
+                }
+                else
+                {
+                    carrAanwezigeLetters[b] = '.';
                 }
             }
         }

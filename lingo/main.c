@@ -24,10 +24,10 @@ char carrGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
 char carrAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
 
 char cKeuze;
-int iCount1, iCount2, iCount3;
+int iCount1, iCount2, iCount3, iGoed, iBeurt;
 
 void ControleerInvoer(void);
-int a, b ,c, k, l, p;
+int a, b ,c, k, l, p, q;
 int main()
 {
     FILE *input;
@@ -44,6 +44,8 @@ int main()
         // {
         //     printf("%c", carrGekozenWoord[iCount]);
         // }
+        iGoed = 0;
+        iBeurt = 0;
         for(iCount1 = 0; iCount1<5; iCount1++)
         {
             if(iCount1 == 0)
@@ -57,25 +59,27 @@ int main()
             carrWoord2[iCount1]=carrGekozenWoord[iCount1];
         }
         // strcpy(carrGekozenWoord,carrWoord);
-        printf("\n");
-        scanf("%s", &carrIngevoegdWoord);
-        ControleerInvoer();
-        printf("\n");
-        scanf("%s", &carrIngevoegdWoord);
-        ControleerInvoer();
-        printf("\n");
-        scanf("%s", &carrIngevoegdWoord);
-        ControleerInvoer();
 
+        while(iGoed==0)
+        {
+            printf("\n");
+            scanf("%s", &carrIngevoegdWoord);
+            ControleerInvoer();
+            if(iBeurt == 4)
+            {
+                printf("\nHelaas, game over!\n\n
+                       ");
+                return 0;
+            }
+        }
 
+        if(iGoed==1)
+        {
+           return 0;
+        }
     }
 
     return 0;
-}
-
-void Initialisatie(void)
-{
-
 }
 
 void ControleerInvoer(void)
@@ -126,7 +130,8 @@ void ControleerInvoer(void)
 
     if((carrIngevoegdWoord[0]==carrGekozenWoord[0])&&(carrIngevoegdWoord[1]==carrGekozenWoord[1])&&(carrIngevoegdWoord[2]==carrGekozenWoord[2])&&(carrIngevoegdWoord[3]==carrGekozenWoord[3])&&(carrIngevoegdWoord[4]==carrGekozenWoord[4]))
     {
-        printf("gefeliciteerd, het woord is goed!");
+        printf ("gefeliciteerd, het woord is goed!");
+        iGoed = 1;
     }
     else
     {
@@ -135,6 +140,8 @@ void ControleerInvoer(void)
         //printf("\n%s   :Goede letters",&carrGoedeLetters);
         printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
         printf("\n%s   :Nieuwe kans",&carrHeleGoedeLetters);
+        iGoed = 0;
+        iBeurt++;
     }
 
 

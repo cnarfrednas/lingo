@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 /******************************************************************
 ** File : lingo.c
@@ -22,16 +23,19 @@ char carrHeleGoedeLetters[6];
 char carrSymbol[6];
 char carrGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
 char carrAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
+char carrEinde[];
 
 char cKeuze;
 int iCount1, iCount2, iCount3, iGoed, iBeurt;
 
 void ControleerInvoer(void);
-int a, b ,c, k, l, p, q;
+int a, b ,c, k, l, i, p, q;
 int main()
 {
+    srand(time(NULL));
+
     FILE *input;
-    if ((input = fopen("woorden.txt", "r")) == NULL)       //invoer ophalen
+    if ((input = fopen("lingowoorden.txt", "r")) == NULL)       //invoer ophalen
     {
         printf("Geen invoer bestand");                              //wanneer er geen input is, deze waarschuwing geven
         return 0;
@@ -39,11 +43,18 @@ int main()
     else
     {
         printf("Welkom bij Lingo!\n#: goede letter\n@: aanwezige letter\n\nHet eerste woord is:\n");
-        fgets (carrGekozenWoord, 6, input);
-        //for(iCount=0; iCount<6; iCount++)
-        // {
-        //     printf("%c", carrGekozenWoord[iCount]);
-        // }
+	for(i = 0; i < rand(); i++)
+	{
+		fgets(carrGekozenWoord, 6, input);
+
+		char carrEinde = getc(input);
+		if(carrEinde == EOF)
+			fseek(input, 0, SEEK_SET);
+
+		else if((carrEinde != '\n') && (carrEinde != EOF))
+			ungetc(carrEinde, input);
+	}
+
         iGoed = 0;
         iBeurt = 0;
         for(iCount1 = 0; iCount1<5; iCount1++)
@@ -67,7 +78,7 @@ int main()
             ControleerInvoer();
             if(iBeurt == 4)
             {
-                printf("\nHelaas, game over!\n\n");
+                printf("\nHelaas, game over! Het woord was: %s\n\n", &carrGekozenWoord);
                 return 0;
             }
         }
@@ -107,9 +118,9 @@ void ControleerInvoer(void)
 
         }
     }
-    printf("\n%s   :Rest invoer",&carrWoord);
-    printf("\n%s   :Rest opl",&carrWoord2);
-    printf("\n%s   :Goede letters",&carrGoedeLetters);
+    //printf("\n%s   :Rest invoer",&carrWoord);
+    //printf("\n%s   :Rest opl",&carrWoord2);
+    //printf("\n%s   :Goede letters",&carrGoedeLetters);
 
     printf("\n\n");
     for(b=0; b<5; b++)
@@ -140,8 +151,8 @@ void ControleerInvoer(void)
     }
 
 
-    printf("\n\n%s   :Rest invoer",&carrWoord);
-    printf("\n%s   :Rest opl",&carrWoord2);
+    //printf("\n\n%s   :Rest invoer",&carrWoord);
+    //printf("\n%s   :Rest opl",&carrWoord2);
     //printf("\n%s   :Goede letters",&carrGoedeLetters);
     printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
     printf("\n%s   :Nieuwe kans",&carrHeleGoedeLetters);

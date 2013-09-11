@@ -1,5 +1,8 @@
 # depslib dependency file v1.0
-1378640857 source:c:\users\sander\documents\codeblocks\lingo\lingo\main.c
+1378804974 source:c:\users\sander\documents\codeblocks\lingo\lingo\main.c
 	<stdio.h>
 	<stdlib.h>
+	<math.h>
+	<string.h>
+	<time.h>
 

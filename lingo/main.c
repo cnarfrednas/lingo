@@ -7,7 +7,7 @@
 /******************************************************************
 ** File : lingo.c
 ** Auteur : Franc Sander van Schaick
-** Datum : 08-09-2013
+** Datum : 10-09-2013
 ** Compiler : GNU GCC
 ** Description :
 ** spel lingo voor CXX01
@@ -30,6 +30,12 @@ int iCount1, iCount2, iCount3, iGoed, iBeurt;
 
 void ControleerInvoer(void);
 int a, b ,c, k, l, i, p, q;
+
+
+
+
+
+
 int main()
 {
     srand(time(NULL));
@@ -43,17 +49,17 @@ int main()
     else
     {
         printf("Welkom bij Lingo!\n#: goede letter\n@: aanwezige letter\n\nHet eerste woord is:\n");
-	for(i = 0; i < rand(); i++)
-	{
-		fgets(carrGekozenWoord, 6, input);
+        for(i = 0; i < rand(); i++)
+        {
+            fgets(carrGekozenWoord, 6, input);
 
-		char carrEinde = getc(input);
-		if(carrEinde == EOF)
-			fseek(input, 0, SEEK_SET);
+            char carrEinde = getc(input);
+            if(carrEinde == EOF)
+                fseek(input, 0, SEEK_SET);
 
-		else if((carrEinde != '\n') && (carrEinde != EOF))
-			ungetc(carrEinde, input);
-	}
+            else if((carrEinde != '\n') && (carrEinde != EOF))
+                ungetc(carrEinde, input);
+        }
 
         iGoed = 0;
         iBeurt = 0;
@@ -92,6 +98,16 @@ int main()
     return 0;
 }
 
+
+
+
+
+
+
+
+
+
+
 void ControleerInvoer(void)
 {
     if((carrIngevoegdWoord[0]==carrGekozenWoord[0])&&(carrIngevoegdWoord[1]==carrGekozenWoord[1])&&(carrIngevoegdWoord[2]==carrGekozenWoord[2])&&(carrIngevoegdWoord[3]==carrGekozenWoord[3])&&(carrIngevoegdWoord[4]==carrGekozenWoord[4]))
@@ -127,7 +143,6 @@ void ControleerInvoer(void)
     {
         for(c=0; c<5; c++)
         {
-            //printf("\n  %i:%i : %c:%c",b,c,carrWoord[b], carrWoord2[c]);
             if(carrWoord[b]==carrWoord2[c] && carrWoord[b] != '.')
             {
                 carrAanwezigeLetters[b]=carrWoord[b];
@@ -150,7 +165,6 @@ void ControleerInvoer(void)
         }
     }
 
-
     //printf("\n\n%s   :Rest invoer",&carrWoord);
     //printf("\n%s   :Rest opl",&carrWoord2);
     //printf("\n%s   :Goede letters",&carrGoedeLetters);
@@ -158,8 +172,5 @@ void ControleerInvoer(void)
     printf("\n%s   :Nieuwe kans",&carrHeleGoedeLetters);
     iGoed = 0;
     iBeurt++;
-
-
-
 
 }

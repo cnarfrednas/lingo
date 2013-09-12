@@ -12,31 +12,71 @@
 ** Description :
 ** spel lingo voor CXX01
 ** Modifications :
-** inlezen file toegevoegd.
+** Opgedeeld in functies.
 ******************************************************************/
 
-char carrIngevoegdWoord[6];
-char carrGekozenWoord[6];
-char carrWoord[6];
-char carrWoord2[6];
-char carrHeleGoedeLetters[6];
-char carrSymbol[6];
-char carrGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
-char carrAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
-char carrEinde[];
+char strIngevoegdWoord[6];
+char strGekozenWoord[6];
+char strWoord[6];
+char strWoord2[6];
+char strHeleGoedeLetters[6];
+char strSymbol[6];
+char strGoedeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
+char strAanwezigeLetters[6]= {' ', ' ', ' ', ' ', ' ', '\0'};
+char strEinde[6];
 
 char cKeuze;
 int iCount1, iCount2, iCount3, iGoed, iBeurt;
 
+void KiesWoord(void);
 void ControleerInvoer(void);
 int a, b ,c, k, l, i, p, q;
 
 
 
-
-
-
 int main()
+{
+
+    KiesWoord();
+    iGoed = 0;
+    iBeurt = 0;
+    for(iCount1 = 0; iCount1<5; iCount1++)
+    {
+        if(iCount1 == 0)
+        {
+            printf("%c", strGekozenWoord[iCount1]);
+        }
+        else
+        {
+            printf(".");
+        }
+        strWoord2[iCount1]=strGekozenWoord[iCount1];
+    }
+    // strcpy(carrGekozenWoord,carrWoord);
+
+    while(iGoed==0)
+    {
+        printf("\n");
+        scanf("%s", &strIngevoegdWoord);
+        ControleerInvoer();
+        if(iBeurt == 4)
+        {
+            printf("\nHelaas, game over! Het woord was: %s\n\n", &strGekozenWoord);
+            return 0;
+        }
+    }
+
+    if(iGoed==1)
+    {
+        return 0;
+    }
+
+
+    return 0;
+}
+
+
+void KiesWoord(void)
 {
     srand(time(NULL));
 
@@ -44,63 +84,24 @@ int main()
     if ((input = fopen("lingowoorden.txt", "r")) == NULL)       //invoer ophalen
     {
         printf("Geen invoer bestand");                              //wanneer er geen input is, deze waarschuwing geven
-        return 0;
+
     }
     else
     {
-        printf("Welkom bij Lingo!\n#: goede letter\n@: aanwezige letter\n\nHet eerste woord is:\n");
+        printf("Welkom bij Lingo!\n\nHet eerste woord is:\n");
         for(i = 0; i < rand(); i++)
         {
-            fgets(carrGekozenWoord, 6, input);
+            fgets(strGekozenWoord, 6, input);
 
-            char carrEinde = getc(input);
-            if(carrEinde == EOF)
+            char strEinde = getc(input);
+            if(strEinde == EOF)
                 fseek(input, 0, SEEK_SET);
 
-            else if((carrEinde != '\n') && (carrEinde != EOF))
-                ungetc(carrEinde, input);
-        }
-
-        iGoed = 0;
-        iBeurt = 0;
-        for(iCount1 = 0; iCount1<5; iCount1++)
-        {
-            if(iCount1 == 0)
-            {
-                printf("%c", carrGekozenWoord[iCount1]);
-            }
-            else
-            {
-                printf(".");
-            }
-            carrWoord2[iCount1]=carrGekozenWoord[iCount1];
-        }
-        // strcpy(carrGekozenWoord,carrWoord);
-
-        while(iGoed==0)
-        {
-            printf("\n");
-            scanf("%s", &carrIngevoegdWoord);
-            ControleerInvoer();
-            if(iBeurt == 4)
-            {
-                printf("\nHelaas, game over! Het woord was: %s\n\n", &carrGekozenWoord);
-                return 0;
-            }
-        }
-
-        if(iGoed==1)
-        {
-            return 0;
+            else if((strEinde != '\n') && (strEinde != EOF))
+                ungetc(strEinde, input);
         }
     }
-
-    return 0;
 }
-
-
-
-
 
 
 
@@ -110,27 +111,27 @@ int main()
 
 void ControleerInvoer(void)
 {
-    if((carrIngevoegdWoord[0]==carrGekozenWoord[0])&&(carrIngevoegdWoord[1]==carrGekozenWoord[1])&&(carrIngevoegdWoord[2]==carrGekozenWoord[2])&&(carrIngevoegdWoord[3]==carrGekozenWoord[3])&&(carrIngevoegdWoord[4]==carrGekozenWoord[4]))
+    if((strIngevoegdWoord[0]==strGekozenWoord[0])&&(strIngevoegdWoord[1]==strGekozenWoord[1])&&(strIngevoegdWoord[2]==strGekozenWoord[2])&&(strIngevoegdWoord[3]==strGekozenWoord[3])&&(strIngevoegdWoord[4]==strGekozenWoord[4]))
     {
         printf ("gefeliciteerd, het woord is goed!\n\n");
         iGoed = 1;
         return;
     }
 
-    strcpy(carrWoord2, carrGekozenWoord);
+    strcpy(strWoord2, strGekozenWoord);
 
     for(a=0; a<5; a++)
     {
-        if(carrWoord2[a]==carrIngevoegdWoord[a])
+        if(strWoord2[a]==strIngevoegdWoord[a])
         {
-            carrGoedeLetters[a]=carrWoord2[a];
-            carrWoord[a] = '.';
-            carrWoord2[a]='.';
+            strGoedeLetters[a]=strWoord2[a];
+            strWoord[a] = '.';
+            strWoord2[a]='.';
         }
         else
         {
-            carrWoord[a]=carrIngevoegdWoord[a];
-            carrGoedeLetters[a]='.';
+            strWoord[a]=strIngevoegdWoord[a];
+            strGoedeLetters[a]='.';
 
         }
     }
@@ -143,34 +144,35 @@ void ControleerInvoer(void)
     {
         for(c=0; c<5; c++)
         {
-            if(carrWoord[b]==carrWoord2[c] && carrWoord[b] != '.')
+            if(strWoord[b]==strWoord2[c] && strWoord[b] != '.')
             {
-                carrAanwezigeLetters[b]=carrWoord[b];
-                carrWoord[b]='.';
-                carrWoord2[c]='.';
+                strAanwezigeLetters[b]=strWoord[b];
+                strWoord[b]='.';
+                strWoord2[c]='.';
                 break;
             }
             else
             {
-                carrAanwezigeLetters[b] = '.';
+                strAanwezigeLetters[b] = '.';
             }
         }
     }
 
     for(k=0; k<5; k++)
     {
-        if(carrGoedeLetters[k] != '.' || carrHeleGoedeLetters[k] == 0)
+        if(strGoedeLetters[k] != '.' || strHeleGoedeLetters[k] == 0)
         {
-            carrHeleGoedeLetters[k]=carrGoedeLetters[k];
+            strHeleGoedeLetters[k]=strGoedeLetters[k];
         }
     }
 
     //printf("\n\n%s   :Rest invoer",&carrWoord);
     //printf("\n%s   :Rest opl",&carrWoord2);
     //printf("\n%s   :Goede letters",&carrGoedeLetters);
-    printf("\n%s   :Aanwezige letters",&carrAanwezigeLetters);
-    printf("\n%s   :Nieuwe kans",&carrHeleGoedeLetters);
+    printf("\n%s   :Aanwezige letters",&strAanwezigeLetters);
+    printf("\n%s   :Nieuwe kans",&strHeleGoedeLetters);
     iGoed = 0;
     iBeurt++;
 
 }
+
